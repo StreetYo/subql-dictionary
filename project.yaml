@@ -1,9 +1,48 @@
 specVersion: 0.0.1
-description: A subquery project provide dictionary data & service for a substrate-based network
+description: A subquery project provide dictionary data & service for HydraDX network
 repository: 'https://github.com/subquery/subql-dictionary'
 schema: ./schema.graphql
 network:
-  endpoint: 'wss://polkadot.api.onfinality.io/public-ws'
+  endpoint: wss://archive.snakenet.hydradx.io
+
+  types: {
+    "Amount": "i128",
+    "AmountOf": "Amount",
+    "Address": "AccountId",
+    "Fee": {
+        "numerator": "u32",
+        "denominator": "u32"
+    },
+    "BalanceInfo": {
+        "amount": "Balance",
+        "assetId": "AssetId"
+    },
+    "CurrencyId": "AssetId",
+    "CurrencyIdOf": "AssetId",
+    "Intention": {
+        "who": "AccountId",
+        "asset_sell": "AssetId",
+        "asset_buy": "AssetId",
+        "amount": "Balance",
+        "discount": "bool",
+        "sell_or_buy": "IntentionType"
+    },
+    "IntentionId": "u128",
+    "IntentionType": {
+        "_enum": [
+            "SELL",
+            "BUY"
+        ]
+    },
+    "LookupSource": "AccountId",
+    "Price": "Balance",
+    "Chain": {
+        "genesisHash": "Vec<u8>",
+        "lastBlockHash": "Vec<u8>"
+    },
+    "AssetPair": "AssetId"
+  }
+
 dataSources:
   - name: main
     kind: substrate/Runtime
